@@ -1,0 +1,12 @@
+.todoItem {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  text-decoration: none;
+  border-bottom: solid black 2px;
+}
+
+.removebtn {
+  cursor: pointer;
+}
