@@ -1,19 +1,13 @@
-import type { Filter } from '../../types';
+import { useTodoContext } from '../../context/TodoContext';
+import styles from './Header.module.css';
 
-type Props = {
-  filters: Filter[];
-  filter: Filter;
-  onFilterChange: React.Dispatch<
-    React.SetStateAction<'All' | 'Active' | 'Completed'>
-  >;
-};
-
-export default function Header({ filters, filter, onFilterChange }: Props) {
+export default function Header() {
+  const { filters, setFilter } = useTodoContext();
   return (
-    <header>
+    <header className={styles.header}>
       <ul>
         {filters.map((filter, id) => (
-          <li key={id} onClick={() => onFilterChange(filter)}>
+          <li key={id} onClick={() => setFilter(filter)}>
             {filter}
           </li>
         ))}

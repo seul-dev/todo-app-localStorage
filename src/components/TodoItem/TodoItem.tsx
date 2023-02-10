@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
-import { TodoContext } from '../../context/TodoContext';
+import { useTodoContext } from '../../context/TodoContext';
 import styles from './TodoItem.module.css';
 import type { Todo } from '../../types/index';
 
@@ -10,7 +9,7 @@ type Props = {
 
 export default function TodoItem({ todo }: Props) {
   const { id, content, status } = todo;
-  const { removeTodoById, updateTodo } = useContext(TodoContext);
+  const { removeTodoById, updateTodo } = useTodoContext();
 
   const handleCheckBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const status: Todo['status'] = e.target.checked ? 'Completed' : 'Active';

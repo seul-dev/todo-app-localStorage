@@ -1,10 +1,10 @@
 import type { Todo } from '../types/index';
-interface TokenRepository {
+interface Storage {
   saveTodos(todos: Todo[]): void;
   getTodos(): Todo[];
 }
 
-class TokenRepositoryImpl implements TokenRepository {
+class StorageImpl implements Storage {
   private key = 'TODO';
 
   saveTodos = (todos: Todo[]) => {
@@ -17,4 +17,4 @@ class TokenRepositoryImpl implements TokenRepository {
   };
 }
 
-export const tokenRepository = new TokenRepositoryImpl();
+export const repository = new StorageImpl();

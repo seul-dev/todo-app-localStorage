@@ -1,15 +1,10 @@
-import { useContext } from 'react';
-import { TodoContext } from '../../context/TodoContext';
+import { useTodoContext } from '../../context/TodoContext';
 import type { Filter, Todo } from '../../types';
 import TodoItem from '../TodoItem/TodoItem';
 import styles from './TodoList.module.css';
 
-type Props = {
-  filter: Filter;
-};
-
-export default function TodoList({ filter }: Props) {
-  const { todos } = useContext(TodoContext);
+export default function TodoList() {
+  const { todos, filter } = useTodoContext();
   const filteredTodos = getFilteredTodoList(todos, filter);
   return (
     <ul className={styles.list}>

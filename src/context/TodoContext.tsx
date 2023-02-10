@@ -1,21 +1,30 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
-import { tokenRepository } from '../repository/tokenRepository';
-import type { Todo } from '../types/index';
+import { repository } from '../repository/repository';
+import type { Todo, Filter } from '../types/index';
+import { useContext } from 'react';
+
+const filters: Filter[] = ['All', 'Active', 'Completed'];
 
 type Props = {
   children: React.ReactNode;
 };
 interface TodoContextValue {
   todos: Todo[];
+  filter: Filter;
+  filters: Filter[];
+  setFilter: React.Dispatch<React.SetStateAction<Filter>>;
   removeTodoById: (id: number) => void;
   createTodo: (todo: string) => void;
   updateTodo: (newTodo: Todo) => void;
 }
 
-const initialState = tokenRepository.getTodos();
+const initialTodoList = repository.getTodos();
 
-export const TodoContext = createContext<TodoContextValue>({
-  todos: initialState,
+const TodoContext = createContext<TodoContextValue>({
+  todos: initialTodoList,
+  filter: 'All',
+  filters,
+  setFilter: () => {},
   removeTodoById: () => {},
   createTodo: () => {},
   updateTodo: () => {},
@@ -23,10 +32,11 @@ export const TodoContext = createContext<TodoContextValue>({
 
 export default function TodoContextProvider({ children }: Props) {
   const todoId = useRef(0);
-  const [todos, setTodos] = useState(initialState);
+  const [todos, setTodos] = useState(initialTodoList);
+  const [filter, setFilter] = useState<Filter>(filters[0]);
 
   useEffect(() => {
-    tokenRepository.saveTodos(todos);
+    repository.saveTodos(todos);
   }, [todos]);
 
   const createTodo = (todo: string): void => {
@@ -48,9 +58,19 @@ export default function TodoContextProvider({ children }: Props) {
 
   return (
     <TodoContext.Provider
-      value={{ todos, removeTodoById, createTodo, updateTodo }}
+      value={{
+        todos,
+        filter,
+        filters,
+        setFilter,
+        removeTodoById,
+        createTodo,
+        updateTodo,
+      }}
     >
       {children}
     </TodoContext.Provider>
   );
 }
+
+export const useTodoContext = () => useContext(TodoContext);
