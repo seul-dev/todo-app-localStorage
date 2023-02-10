@@ -5,14 +5,15 @@ interface Storage {
 }
 
 class StorageImpl implements Storage {
-  private key = 'TODO';
+  private todoKey = 'TODO';
 
   saveTodos = (todos: Todo[]) => {
-    localStorage.setItem(this.key, JSON.stringify(todos));
+    localStorage.setItem(this.todoKey, JSON.stringify(todos));
   };
 
   getTodos = (): Todo[] => {
-    const todos = localStorage.getItem(this.key);
+    const todos = localStorage.getItem(this.todoKey);
+    console.log('localStorage');
     return todos ? (JSON.parse(todos) as Todo[]) : [];
   };
 }
