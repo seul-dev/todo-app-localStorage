@@ -21,7 +21,7 @@ interface TodoContextValue {
 const initialTodoList = repository.getTodos();
 
 const TodoContext = createContext<TodoContextValue>({
-  todos: initialTodoList,
+  todos: [],
   filter: 'All',
   filters,
   setFilter: () => {},
@@ -32,7 +32,7 @@ const TodoContext = createContext<TodoContextValue>({
 
 export default function TodoContextProvider({ children }: Props) {
   const [todos, setTodos] = useState(initialTodoList);
-  const [filter, setFilter] = useState<Filter>(filters[0]);
+  const [filter, setFilter] = useState<Filter>('All');
 
   useEffect(() => {
     repository.saveTodos(todos);

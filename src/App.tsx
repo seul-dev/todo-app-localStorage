@@ -5,13 +5,13 @@ import TodoContextProvider from './context/TodoContext';
 
 function App() {
   return (
-    <div>
+    <>
       <TodoContextProvider>
         <Header />
         <Input />
         <TodoList />
       </TodoContextProvider>
-    </div>
+    </>
   );
 }
 
