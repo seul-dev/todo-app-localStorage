@@ -1,7 +1,7 @@
 import { FiTrash2 } from 'react-icons/fi';
 import { useTodoContext } from '../../context/TodoContext';
-import styles from './TodoItem.module.css';
 import type { Todo } from '../../types/index';
+import styles from './TodoItem.module.css';
 
 type Props = {
   todo: Todo;

@@ -58,7 +58,7 @@ export default function TodoContextProvider({ children }: Props) {
   return (
     <TodoContext.Provider
       value={{
-        todos,
+        todos: getFilteredTodoList(todos, filter),
         filter,
         filters,
         setFilter,
@@ -73,3 +73,10 @@ export default function TodoContextProvider({ children }: Props) {
 }
 
 export const useTodoContext = () => useContext(TodoContext);
+
+const getFilteredTodoList = (todos: Todo[], filter: Filter) => {
+  if (filter === 'All') {
+    return todos;
+  }
+  return todos.filter((todo) => todo.status === filter);
+};

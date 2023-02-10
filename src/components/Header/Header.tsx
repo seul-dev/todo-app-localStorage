@@ -1,8 +1,11 @@
 import { useTodoContext } from '../../context/TodoContext';
+import type { Filter } from '../../types';
 import styles from './Header.module.css';
 
+const filters: Filter[] = ['All', 'Active', 'Completed'];
+
 export default function Header() {
-  const { filters, setFilter } = useTodoContext();
+  const { setFilter } = useTodoContext();
   return (
     <header className={styles.header}>
       <ul>

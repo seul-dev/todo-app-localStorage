@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useTodoContext } from '../../context/TodoContext';
 import styles from './Input.module.css';
 
