@@ -1,19 +1,19 @@
-import type { ITodo } from '../types/index';
+import type { Todo } from '../types/index';
 interface TokenRepository {
-  saveTodos(todos: ITodo[]): void;
-  getTodos(): ITodo[];
+  saveTodos(todos: Todo[]): void;
+  getTodos(): Todo[];
 }
 
 class TokenRepositoryImpl implements TokenRepository {
   private key = 'TODO';
 
-  saveTodos = (todos: ITodo[]) => {
+  saveTodos = (todos: Todo[]) => {
     localStorage.setItem(this.key, JSON.stringify(todos));
   };
 
-  getTodos = (): ITodo[] => {
+  getTodos = (): Todo[] => {
     const todos = localStorage.getItem(this.key);
-    return todos ? (JSON.parse(todos) as ITodo[]) : [];
+    return todos ? (JSON.parse(todos) as Todo[]) : [];
   };
 }
 

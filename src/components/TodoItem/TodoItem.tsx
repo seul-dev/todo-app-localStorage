@@ -1,21 +1,20 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
 import { TodoContext } from '../../context/TodoContext';
 import styles from './TodoItem.module.css';
+import type { Todo } from '../../types/index';
 
 type Props = {
-  id: number;
-  content: string;
-  isDone: boolean;
+  todo: Todo;
 };
 
-export default function TodoItem({ id, content, isDone }: Props) {
-  const { removeTodoById, toggleIsDone } = useContext(TodoContext);
-  const [checked, setChecked] = useState(isDone);
+export default function TodoItem({ todo }: Props) {
+  const { id, content, status } = todo;
+  const { removeTodoById, updateTodo } = useContext(TodoContext);
 
   const handleCheckBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
-    toggleIsDone(id, checked);
+    const status: Todo['status'] = e.target.checked ? 'Completed' : 'Active';
+    updateTodo({ ...todo, status });
   };
 
   const handleRemove = () => {
@@ -26,7 +25,7 @@ export default function TodoItem({ id, content, isDone }: Props) {
       <input
         type='checkbox'
         name='toggle'
-        checked={checked}
+        checked={status === 'Completed'}
         onChange={handleCheckBoxChange}
       />
       <p className={styles.content}>{content}</p>

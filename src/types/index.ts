@@ -1,5 +1,7 @@
-export interface ITodo {
+export type Todo = {
   id: number;
   content: string;
-  isDone: boolean;
-}
+  status: 'Completed' | 'Active';
+};
+
+export type Filter = 'All' | 'Active' | 'Completed';
