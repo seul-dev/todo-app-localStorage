@@ -1,7 +1,7 @@
-import React, { createContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useEffect, useState, useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { repository } from '../repository/repository';
 import type { Todo, Filter } from '../types/index';
-import { useContext } from 'react';
 
 const filters: Filter[] = ['All', 'Active', 'Completed'];
 
@@ -13,7 +13,7 @@ interface TodoContextValue {
   filter: Filter;
   filters: Filter[];
   setFilter: React.Dispatch<React.SetStateAction<Filter>>;
-  removeTodoById: (id: number) => void;
+  removeTodoById: (id: string) => void;
   createTodo: (todo: string) => void;
   updateTodo: (newTodo: Todo) => void;
 }
@@ -31,7 +31,6 @@ const TodoContext = createContext<TodoContextValue>({
 });
 
 export default function TodoContextProvider({ children }: Props) {
-  const todoId = useRef(0);
   const [todos, setTodos] = useState(initialTodoList);
   const [filter, setFilter] = useState<Filter>(filters[0]);
 
@@ -41,14 +40,14 @@ export default function TodoContextProvider({ children }: Props) {
 
   const createTodo = (todo: string): void => {
     const newTodo: Todo = {
-      id: todoId.current++,
+      id: uuidv4(),
       content: todo,
       status: 'Active',
     };
     setTodos((prev) => [newTodo, ...prev]);
   };
 
-  const removeTodoById = (id: number) => {
+  const removeTodoById = (id: string) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
